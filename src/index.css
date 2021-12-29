@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500;600;700;800&family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Poppins", sans-serif;
+  background-color: var(--primary-bg);
+}
+
+:root {
+  --primary-bg: #292929;
+  --secondary-bg: #121212;
+  --light-blue: #0096ff;
+  --dark-blue: #1f51ff;
+  --teal: #48d1cc;
+  --purple: #bb86fc;
+  --dark-purple: #5d3fd3;
+  --white: #ffffffda;
+}

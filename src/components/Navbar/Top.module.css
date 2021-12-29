@@ -1,0 +1,63 @@
+.top {
+  display: flex;
+  width: 100%;
+  padding: 1rem;
+  justify-content: space-between;
+}
+
+.second_container {
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--white);
+}
+
+.add_btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.input_div {
+  background: rgba(0, 0, 0, 0.151);
+  display: flex;
+  align-items: center;
+  color: white;
+  border-radius: 0.4rem;
+  padding: 0.5rem;
+  width: 50%;
+}
+
+.input {
+  background: transparent;
+  height: 100%;
+  padding: 0.5rem;
+  border-radius: 0.4rem;
+  border: none;
+  outline: none;
+  font-family: "Poppins";
+  color: var(--white);
+  width: 100%;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  justify-content: center;
+  cursor: pointer;
+  transition: 200ms ease;
+}
+
+.icon:hover {
+  background: rgba(0, 0, 0, 0.151);
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+}

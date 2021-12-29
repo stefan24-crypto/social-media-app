@@ -1,0 +1,11 @@
+.btn {
+  padding: 0.6em 1em;
+  border-radius: 0.4rem;
+  color: white;
+  font-family: "Poppins";
+  font-size: 0.8rem;
+  background: linear-gradient(to right, #e1306c, #f77737);
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
