@@ -12,20 +12,14 @@ import { faSignInAlt } from "@fortawesome/free-solid-svg-icons";
 import text from "../../images/ig-text.png";
 import ProfileSection from "./ProfileSection";
 import CategoryIcon from "@mui/icons-material/Category";
-
-//Note: Add Profile here
+import { useAppSelector } from "../../store/hooks";
+import { auth } from "../../firebase";
 
 const Navbar: React.FC = () => {
+  const curUser = useAppSelector((state) => state.auth.curUser);
   return (
     <nav className={classes.nav}>
       <div className={classes.logo}>
-        {/* <InstagramIcon
-          sx={{
-            width: "40px",
-            height: "40px",
-            fill: "url(#linearColors)",
-          }}
-        />  */}
         <img src={logo} className={classes.img} alt="icon" />
         <img src={text} className={classes.text} alt="text}" />
       </div>
@@ -67,15 +61,22 @@ const Navbar: React.FC = () => {
           <FontAwesomeIcon icon={faUserCircle} className={classes.icon} />
           <p>Profile</p>
         </NavLink>
-        <NavLink
-          to="/login"
-          className={(state) => {
-            return `${classes.link} ${state.isActive ? classes.active : ""}`;
-          }}
-        >
-          <FontAwesomeIcon icon={faSignInAlt} className={classes.icon} />
-          <p>Login</p>
-        </NavLink>
+        {curUser ? (
+          <div className={classes.logout} onClick={() => auth.signOut()}>
+            <FontAwesomeIcon icon={faSignOutAlt} />
+            <p>Logout</p>
+          </div>
+        ) : (
+          <NavLink
+            to="/login"
+            className={(state) => {
+              return `${classes.link} ${state.isActive ? classes.active : ""}`;
+            }}
+          >
+            <FontAwesomeIcon icon={faSignInAlt} className={classes.icon} />
+            <p>Login</p>
+          </NavLink>
+        )}
       </div>
     </nav>
   );

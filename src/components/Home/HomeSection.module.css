@@ -5,4 +5,10 @@
 
 .h1 {
   font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+.people {
+  display: flex;
+  gap: 1rem;
 }

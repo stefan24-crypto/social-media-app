@@ -54,3 +54,17 @@
   height: 25px;
   background: gray;
 }
+
+.noUser {
+  width: 100%;
+  display: flex;
+  padding: 2rem;
+  justify-content: center;
+  align-items: center;
+  color: gray;
+  font-size: 1.3rem;
+}
+
+.noUser h1 {
+  font-weight: 500;
+}

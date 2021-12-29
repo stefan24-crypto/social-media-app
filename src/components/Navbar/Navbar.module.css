@@ -57,9 +57,16 @@
 .active {
   border-right: 2px ridge;
   border-image-slice: 1;
-  /* border-image-source: linear-gradient(to top, #743ad5, #d53a9d); */
   border-image-source: linear-gradient(to top, #e1306c, #f77737);
-  /* background: linear-gradient(to right, #e1306c, #f77737);
-  background-clip: text;
-  color: transparent; */
+}
+
+.logout {
+  color: #e1306c;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 0.5rem;
+  padding-left: 2rem;
+  cursor: pointer;
 }
