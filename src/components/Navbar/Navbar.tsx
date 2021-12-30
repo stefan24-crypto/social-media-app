@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./Navbar.module.css";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../../images/instagram-logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faUser } from "@fortawesome/free-solid-svg-icons";
@@ -16,7 +16,10 @@ import { useAppSelector } from "../../store/hooks";
 import { auth } from "../../firebase";
 
 const Navbar: React.FC = () => {
-  const curUser = useAppSelector((state) => state.auth.curUser);
+  const user = useAppSelector((state) => state.auth.curUser);
+  const users = useAppSelector((state) => state.data.users);
+  const curUser = users.find((each) => each.name === user?.displayName);
+  const navigate = useNavigate();
   return (
     <nav className={classes.nav}>
       <div className={classes.logo}>
@@ -53,7 +56,7 @@ const Navbar: React.FC = () => {
           <p>Direct</p>
         </NavLink>
         <NavLink
-          to="/profile"
+          to={`/profile/${curUser?.id}`}
           className={(state) => {
             return `${classes.link} ${state.isActive ? classes.active : ""}`;
           }}
@@ -62,7 +65,13 @@ const Navbar: React.FC = () => {
           <p>Profile</p>
         </NavLink>
         {curUser ? (
-          <div className={classes.logout} onClick={() => auth.signOut()}>
+          <div
+            className={classes.logout}
+            onClick={() => {
+              auth.signOut();
+              navigate("/");
+            }}
+          >
             <FontAwesomeIcon icon={faSignOutAlt} />
             <p>Logout</p>
           </div>

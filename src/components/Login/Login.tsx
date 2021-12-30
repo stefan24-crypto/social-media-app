@@ -51,7 +51,7 @@ const Login: React.FC = () => {
         alert(error);
       }
       const userData: User = {
-        id: Math.random().toString(),
+        id: auth.currentUser!.uid,
         name: displayName,
         profile_pic: photoURL,
         followers: [],

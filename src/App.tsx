@@ -10,6 +10,7 @@ import { auth, db } from "./firebase";
 import { authActions } from "./store/auth-slice";
 import { collection, onSnapshot } from "firebase/firestore";
 import { dataActions } from "./store/data-slice";
+import AddPostPage from "./Pages/AddPostPage";
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -28,7 +29,6 @@ const App: React.FC = () => {
       unsubscribe();
     };
   }, []);
-  console.log(curUser);
 
   //Data
   useEffect(() => {
@@ -42,14 +42,14 @@ const App: React.FC = () => {
       );
     });
   }, []);
-  console.log(users);
   return (
     <Layout>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/profile/:profileID" element={<ProfilePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/feed" element={<FeedPage />} />
+        <Route path="/add" element={<AddPostPage />} />
       </Routes>
     </Layout>
   );

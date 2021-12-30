@@ -13,14 +13,14 @@ export interface Post {
 }
 
 type Follower = { name: string; profile_pic: string };
-type Followers = Follower[] | [];
-type Following = Follower[] | [];
+
+export type Followers = Follower[] | [];
 
 export interface User {
   id: string;
   name: string;
   profile_pic: string;
   followers: Followers;
-  following: Following;
+  following: Followers;
   posts: Post[] | [];
 }

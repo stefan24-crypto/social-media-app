@@ -21,3 +21,7 @@ html {
   --dark-purple: #5d3fd3;
   --white: #ffffffda;
 }
+
+::-webkit-scrollbar {
+  width: 0;
+}
