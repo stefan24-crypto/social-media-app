@@ -1,4 +1,6 @@
 import React from "react";
+import { DUMMTY_POSTS } from "../../dummy_posts";
+import useGetUserPosts from "../../hooks/useGetUserPosts";
 import { useAppSelector } from "../../store/hooks";
 import ProfileCirlcle from "../../UI/ProfileCirlcle";
 import classes from "./ProfileSection.module.css";
@@ -6,10 +8,12 @@ import classes from "./ProfileSection.module.css";
 const ProfileSection: React.FC = () => {
   const curUser = useAppSelector((state) => state.auth.curUser);
   const allUsers = useAppSelector((state) => state.data.users);
-  if (!curUser) return <div className={classes.noUser}></div>;
   const userProfile = allUsers.find(
-    (each) => each.name === curUser!.displayName
+    (each) => each.name === curUser?.displayName
   );
+  const { amount } = useGetUserPosts(userProfile || undefined, DUMMTY_POSTS);
+  if (!curUser) return <div className={classes.noUser}></div>;
+
   if (!userProfile) return <h1>No user</h1>;
   return (
     <section className={classes.section}>
@@ -21,6 +25,11 @@ const ProfileSection: React.FC = () => {
           }
           bgColor="#121212"
           id={userProfile.id}
+          width="75px"
+          height="75px"
+          paddingOnGradient="1.5px"
+          paddingOnImage="4px"
+          clickable
         />
         <div>
           <h1>{userProfile.name}</h1>
@@ -28,7 +37,7 @@ const ProfileSection: React.FC = () => {
       </header>
       <main className={classes.main}>
         <div className={classes.stat}>
-          <p>{userProfile.posts.length}</p>
+          <p>{amount}</p>
           <span>Posts</span>
         </div>
         <div className={classes.vertical}></div>

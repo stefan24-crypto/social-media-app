@@ -1,4 +1,14 @@
-type Comment = { id: string; author: string; text: string; time: Date };
+export type Comment = { id: string; author: string; text: string; time: Date };
+type Category =
+  | "Painting"
+  | "Portrait"
+  | "Technolgoy"
+  | "Cars"
+  | "Outdoors"
+  | "Coding"
+  | "Finance"
+  | "Sports"
+  | "Philanthropy";
 
 export interface Post {
   id: string;
@@ -10,6 +20,7 @@ export interface Post {
   tags: string[];
   comments: Comment[];
   likes: number;
+  category: Category;
 }
 
 type Follower = { name: string; profile_pic: string };
@@ -22,5 +33,16 @@ export interface User {
   profile_pic: string;
   followers: Followers;
   following: Followers;
-  posts: Post[] | [];
 }
+
+export const Categories = [
+  "Painting",
+  "Portrait",
+  "Technolgoy",
+  "Cars",
+  "Outdoors",
+  "Coding",
+  "Finance",
+  "Sports",
+  "Philanthropy",
+];

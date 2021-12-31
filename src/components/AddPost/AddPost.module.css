@@ -1,0 +1,60 @@
+.addPost {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.btn {
+  border-radius: 25px;
+  background: linear-gradient(to right, #e1306c, #f77737);
+  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  font-family: "Poppins";
+  font-size: 1rem;
+  font-weight: 400;
+  padding: 0.7rem 2rem;
+  width: 100%;
+}
+
+.header {
+  padding: 2rem;
+  border-radius: 0.4rem;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
+.back {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+
+.input_image {
+  width: 70%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.input_image form {
+  width: 100%;
+  display: flex;
+  /* justify-content: center; */
+}
+
+.textField {
+  color: white !important;
+}

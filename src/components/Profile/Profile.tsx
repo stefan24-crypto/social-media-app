@@ -1,10 +1,13 @@
 import { doc, updateDoc } from "firebase/firestore";
 import React from "react";
+import { DUMMTY_POSTS } from "../../dummy_posts";
 import { db } from "../../firebase";
 import useFormatFollowers from "../../hooks/useFormatFollowers";
+import useGetUserPosts from "../../hooks/useGetUserPosts";
 import { useAppSelector } from "../../store/hooks";
 import Button from "../../UI/Button";
 import ProfileCirlcle from "../../UI/ProfileCirlcle";
+import PostCard from "../Post/PostCard";
 import classes from "./Profile.module.css";
 
 interface ProfileProps {
@@ -18,6 +21,10 @@ const Profile: React.FC<ProfileProps> = ({ id }) => {
     (each) => each.name === curUser?.displayName
   );
   const clickedOnUserProfile = users.find((each) => each.id === id); // This is the user profile that has been clicked on!
+  const { amount, thisUserPosts } = useGetUserPosts(
+    clickedOnUserProfile,
+    DUMMTY_POSTS
+  );
   const briefFollowerDescription = useFormatFollowers(
     clickedOnUserProfile?.followers || [],
     "Follower"
@@ -29,7 +36,6 @@ const Profile: React.FC<ProfileProps> = ({ id }) => {
   if (!clickedOnUserProfile) return <></>;
   let btn;
 
-  //Prevent Users from following twice
   const followHandler = async () => {
     const isThere = clickedOnUserProfile.followers.find(
       (each) => each.name === curUserProfile!.name
@@ -61,8 +67,21 @@ const Profile: React.FC<ProfileProps> = ({ id }) => {
     await updateDoc(clickedOnUserDoc, newClickedOnFields);
   };
 
+  //Logic for choosing which button to render!
   if (curUser) {
-    btn = <Button onClick={followHandler}>Follow</Button>;
+    const followingAlready = clickedOnUserProfile.followers.find(
+      (each) => each.name === curUserProfile!.name
+    );
+    console.log(followingAlready);
+    if (followingAlready) {
+      btn = (
+        <Button disabled={true} className={classes.disabled}>
+          Followed
+        </Button>
+      );
+    } else {
+      btn = <Button onClick={followHandler}>Follow</Button>;
+    }
   } else {
     btn = (
       <Button disabled={true} className={classes.disabled}>
@@ -70,6 +89,8 @@ const Profile: React.FC<ProfileProps> = ({ id }) => {
       </Button>
     );
   }
+
+
   return (
     <section className={classes.section}>
       <header className={classes.header}>
@@ -90,7 +111,7 @@ const Profile: React.FC<ProfileProps> = ({ id }) => {
         <div className={classes.info}>
           <div className={classes.stats}>
             <div className={classes.stat}>
-              <p>{clickedOnUserProfile.posts.length}</p>
+              <p>{amount}</p>
               <span>Posts</span>
             </div>
             <div className={classes.stat}>
@@ -115,7 +136,22 @@ const Profile: React.FC<ProfileProps> = ({ id }) => {
           </div>
         </div>
       </header>
-      <main></main>
+      <div className={classes.heading}>
+        <h1>Posts</h1>
+      </div>
+      <main className={classes.posts}>
+        {thisUserPosts.map((each) => (
+          <PostCard
+            id={each.id}
+            image={each.image}
+            likes={each.likes}
+            comments={each.comments}
+            key={each.id}
+            author={each.author}
+            author_pic={each.author_pic}
+          />
+        ))}
+      </main>
     </section>
   );
 };

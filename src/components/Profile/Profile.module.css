@@ -14,8 +14,8 @@
 }
 
 .inner {
-  width: 250px;
-  height: 250px;
+  width: 225px;
+  height: 225px;
   border-radius: 50%;
   border-radius: 1000px;
   padding: 4px;
@@ -84,11 +84,16 @@
   justify-content: center;
 }
 .user_info h1 {
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 .disabled {
   opacity: 0.5;
+  cursor: default;
+}
+
+.disabled:hover {
+  transform: none;
 }
 
 .desc {
@@ -98,6 +103,21 @@
   /* align-items: center; */
   width: 80%;
   gap: 5px;
+}
+
+.posts {
+  display: grid;
+  justify-items: center;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+.heading {
+  padding: 2rem 0;
+  font-size: 1.5rem;
+  color: white;
+}
+.heading h1 {
+  font-weight: 400;
 }
 
 @media (max-width: 1000px) {

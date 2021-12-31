@@ -1,0 +1,120 @@
+.section {
+  padding: 1rem;
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
+  color: white;
+}
+
+.first_container {
+  width: 70%;
+}
+
+.header {
+  width: auto;
+  height: 600px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border-radius: 0.5rem;
+  display: flex;
+}
+
+.info {
+  display: flex;
+  padding: 2rem;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  background: var(--shadow);
+  color: white;
+  border-radius: 0.5rem;
+}
+
+.prof_pic {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.info div:nth-child(1) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  color: var(--white);
+}
+
+.stats div:nth-child(1) {
+  display: flex;
+  gap: 10px;
+}
+
+.stats div:nth-child(2) {
+  display: flex;
+  gap: 10px;
+}
+
+.stats div:nth-child(2) > div {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.title {
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.followed {
+  color: var(--white);
+  font-size: 0.9rem;
+  padding: 1rem 0;
+}
+
+.comment_section {
+  width: 30%;
+  background: linear-gradient(to right, #e1306c, #f77737);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  height: 100%;
+}
+
+.comments {
+  height: 95%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.heading {
+  height: 5%;
+  font-size: 1.5rem;
+}
+
+.add_cmt {
+  display: flex;
+  background: var(--shadow);
+  align-items: center;
+  border-radius: 100rem;
+  padding: 0.5rem;
+}
+
+.add_cmt input {
+  width: 100%;
+  background: transparent;
+  padding: 0.5rem;
+  border: none;
+  outline: none;
+  border-radius: 100rem 0 0 100rem;
+  color: white;
+  font-size: 1rem;
+  font-family: "Poppins";
+}

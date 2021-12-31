@@ -1,0 +1,54 @@
+.card {
+  border-radius: 0.4rem;
+  max-width: 300px;
+  cursor: pointer;
+  transition: 200ms ease;
+  color: white;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.img {
+  width: 100%;
+  height: auto;
+  border-radius: 0.4rem;
+}
+
+.like_and_comments {
+  display: flex;
+  padding: 0.2rem;
+  gap: 10px;
+}
+
+.like_and_comments div {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile p {
+  font-size: 0.9rem;
+}
+
+.main {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+
+  /* background: red; */
+}
+
+.prof_pic {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  border-radius: 50%;
+}

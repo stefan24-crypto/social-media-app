@@ -1,7 +1,8 @@
 import React from "react";
+import AddPost from "../components/AddPost/AddPost";
 
 const AddPostPage: React.FC = () => {
-  return <section>Add Post</section>;
+  return <AddPost />;
 };
 
 export default AddPostPage;

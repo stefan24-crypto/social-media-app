@@ -56,7 +56,6 @@ const Login: React.FC = () => {
         profile_pic: photoURL,
         followers: [],
         following: [],
-        posts: [],
       };
       await addDoc(usersCollection, userData);
     } else {

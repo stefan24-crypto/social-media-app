@@ -20,7 +20,7 @@
 }
 
 .input_div {
-  background: rgba(0, 0, 0, 0.151);
+  background: var(--shadow);
   display: flex;
   align-items: center;
   color: white;

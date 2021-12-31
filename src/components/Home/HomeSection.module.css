@@ -6,6 +6,7 @@
 .h1 {
   font-weight: 400;
   margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 
 .people {
@@ -13,4 +14,31 @@
   width: 100%;
   overflow-x: auto;
   gap: 1rem;
+}
+
+.main {
+  display: flex;
+  gap: 10px;
+  margin-top: 2rem;
+  gap: 2rem;
+}
+
+.responsive {
+  display: flex;
+  gap: 2rem;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (max-width: 1200px) {
+  .responsive {
+    flex-direction: column;
+  }
+  .main {
+    justify-content: center;
+  }
 }

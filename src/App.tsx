@@ -11,12 +11,13 @@ import { authActions } from "./store/auth-slice";
 import { collection, onSnapshot } from "firebase/firestore";
 import { dataActions } from "./store/data-slice";
 import AddPostPage from "./Pages/AddPostPage";
+import PostDetailPage from "./Pages/PostDetailPage";
+
+//To Change DUMMY_POSTS: HomeSection, PostDetail, ProfileSection, Profile.
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
   //Authentication
-  const curUser = useAppSelector((state) => state.auth.curUser);
-  const users = useAppSelector((state) => state.data.users);
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
@@ -30,6 +31,7 @@ const App: React.FC = () => {
     };
   }, []);
 
+  //Figure Out a way to set all posts
   //Data
   useEffect(() => {
     onSnapshot(collection(db, "users"), (snapshot) => {
@@ -50,6 +52,7 @@ const App: React.FC = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/feed" element={<FeedPage />} />
         <Route path="/add" element={<AddPostPage />} />
+        <Route path="/:postID" element={<PostDetailPage />} />
       </Routes>
     </Layout>
   );

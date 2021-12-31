@@ -1,16 +1,12 @@
 .img_div {
   background: linear-gradient(to top right, #e1306c, #f77737);
   border-radius: 50%;
-  padding: 1.5px;
   border-radius: 1000px;
 }
 
 .inner {
-  width: 75px;
-  height: 75px;
   border-radius: 50%;
   border-radius: 1000px;
-  padding: 4px;
 }
 
 .profile {
@@ -21,7 +17,7 @@
   transition: 200ms ease;
 }
 
-.profile:hover {
+.hovering:hover {
   transform: scale(1.05);
   cursor: pointer;
 }
