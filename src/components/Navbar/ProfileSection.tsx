@@ -1,5 +1,4 @@
 import React from "react";
-import { DUMMTY_POSTS } from "../../dummy";
 import useGetUserPosts from "../../hooks/useGetUserPosts";
 import { useAppSelector } from "../../store/hooks";
 import ProfileCirlcle from "../../UI/ProfileCirlcle";
@@ -9,11 +8,12 @@ import { CircularProgress } from "@mui/material";
 const ProfileSection: React.FC = () => {
   const curUser = useAppSelector((state) => state.auth.curUser);
   const allUsers = useAppSelector((state) => state.data.users);
+  const posts = useAppSelector(state  => state.data.posts);
   const isLoading = useAppSelector((state) => state.ui.isLoading);
   const userProfile = allUsers.find(
     (each) => each.name === curUser?.displayName
   );
-  const { amount } = useGetUserPosts(userProfile || undefined, DUMMTY_POSTS);
+  const { amount } = useGetUserPosts(userProfile || undefined, posts);
 
   if (!curUser) return <div className={classes.noUser}></div>;
   // if (!userProfile) return <h1>No user</h1>;

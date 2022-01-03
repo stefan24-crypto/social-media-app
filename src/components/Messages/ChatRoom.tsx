@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from "react";
-import { DUMMY_DMS } from "../../dummy";
 import { useAppSelector } from "../../store/hooks";
 import ProfileCirlcle from "../../UI/ProfileCirlcle";
 import classes from "./ChatRoom.module.css";
@@ -12,7 +11,8 @@ interface ChatRoomProps {
 const ChatRoom: React.FC<ChatRoomProps> = ({ id }) => {
   const textInputRef = useRef<HTMLInputElement>(null);
   const curUser = useAppSelector((state) => state.auth.curUser);
-  const thisChatRoom = DUMMY_DMS.find((each) => each.id === id);
+  const dms = useAppSelector((state) => state.data.dms);
+  const thisChatRoom = dms.find((each) => each.id === id);
   if (!thisChatRoom) return <h1>No Chat Room</h1>;
 
   const otherPerson = thisChatRoom?.people.find(
@@ -40,7 +40,7 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ id }) => {
         ))}
       </main>
       <footer className={classes.footer}>
-        <input type="text" placeholder="Message" ref={textInputRef} />
+        <input type="text" placeholder="Message..." ref={textInputRef} />
       </footer>
     </section>
   );

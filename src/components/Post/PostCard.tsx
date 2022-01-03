@@ -6,6 +6,11 @@ import { faComment } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import ProfileCirlcle from "../../UI/ProfileCirlcle";
 import { useNavigate } from "react-router";
+import { Badge } from "@mui/material";
+import ClearIcon from "@mui/icons-material/Clear";
+import { fontWeight } from "@mui/system";
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "../../firebase";
 
 interface PostCardProps {
   id: string;
@@ -15,6 +20,7 @@ interface PostCardProps {
   author: string;
   author_pic: string;
   fixedHeight?: string;
+  curUserPost?: boolean;
 }
 
 const PostCard: React.FC<PostCardProps> = ({
@@ -25,10 +31,21 @@ const PostCard: React.FC<PostCardProps> = ({
   author,
   author_pic,
   fixedHeight,
+  curUserPost,
 }) => {
   const navigate = useNavigate();
+  const deleteHandler = async () => {
+    const postDoc = doc(db, "posts", id);
+    await deleteDoc(postDoc);
+  };
+
   return (
     <section className={classes.card}>
+      {curUserPost && (
+        <div className={classes.del} onClick={deleteHandler}>
+          <ClearIcon />
+        </div>
+      )}
       <header onClick={() => navigate(`/post/${id}`)}>
         <img
           src={image}

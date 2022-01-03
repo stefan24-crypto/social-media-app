@@ -55,3 +55,21 @@
   object-fit: cover;
   border-radius: 50%;
 }
+
+.del {
+  position: relative;
+  /* width: 100%; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  color: white;
+  background-color: var(--pink);
+  left: 90%;
+  top: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  z-index: 100;
+  cursor: pointer;
+}

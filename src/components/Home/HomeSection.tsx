@@ -1,6 +1,5 @@
 import { CircularProgress } from "@mui/material";
 import React from "react";
-import { DUMMTY_POSTS } from "../../dummy";
 import { useAppSelector } from "../../store/hooks";
 import ProfileCirlcle from "../../UI/ProfileCirlcle";
 import PostCard from "../Post/PostCard";
@@ -10,6 +9,9 @@ const HomeSection: React.FC = () => {
   const users = useAppSelector((state) => state.data.users);
   const curUser = useAppSelector((state) => state.auth.curUser);
   const isLoading = useAppSelector((state) => state.ui.isLoading);
+  const posts = useAppSelector((state) => state.data.posts);
+
+  if (!posts || posts.length === 0) return <h1>No Posts</h1>;
 
   const splitArrayIntoChunksOfLen = (arr: any[], len: number) => {
     const chunks = [],
@@ -23,7 +25,7 @@ const HomeSection: React.FC = () => {
   };
 
   let [firstArr, secondArr, thirdArr, fourthArr] = splitArrayIntoChunksOfLen(
-    DUMMTY_POSTS,
+    posts,
     4
   );
 

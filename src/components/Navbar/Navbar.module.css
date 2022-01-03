@@ -58,11 +58,11 @@
 .active {
   border-right: 2px ridge;
   border-image-slice: 1;
-  border-image-source: linear-gradient(to top, #e1306c, #f77737);
+  border-image-source: linear-gradient(to top, var(--pink), var(--orange));
 }
 
 .logout {
-  color: #e1306c;
+  color: var(--pink);
   display: flex;
   align-items: center;
   gap: 10px;

@@ -1,5 +1,5 @@
 import React from "react";
-import { DUMMTY_POSTS } from "../../dummy";
+import { useAppSelector } from "../../store/hooks";
 import PostCard from "../Post/PostCard";
 import classes from "./Category.module.css";
 
@@ -8,9 +8,8 @@ interface CategoryProps {
 }
 
 const Category: React.FC<CategoryProps> = ({ category }) => {
-  const thisCategoryPosts = DUMMTY_POSTS.filter(
-    (each) => each.category === category
-  );
+  const posts = useAppSelector((state) => state.data.posts);
+  const thisCategoryPosts = posts.filter((each) => each.category === category);
   if (thisCategoryPosts.length === 0)
     return (
       <div className={classes.no_posts}>

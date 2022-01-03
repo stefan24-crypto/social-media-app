@@ -1,5 +1,4 @@
 import React from "react";
-import { DUMMTY_POSTS } from "../../dummy";
 import classes from "./PostDetail.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
@@ -15,7 +14,8 @@ interface PostDetailProps {
 
 const PostDetail: React.FC<PostDetailProps> = ({ id }) => {
   const users = useAppSelector((state) => state.data.users);
-  const thisPost = DUMMTY_POSTS.find((each) => each.id === id);
+  const posts = useAppSelector((state) => state.data.posts);
+  const thisPost = posts.find((each) => each.id === id);
   const authorProfile = users.find((each) => each.name === thisPost?.author);
   const followerText = useFormatFollowers(
     authorProfile?.followers || [],
@@ -31,7 +31,7 @@ const PostDetail: React.FC<PostDetailProps> = ({ id }) => {
       <div className={classes.first_container}>
         <header
           className={classes.header}
-          style={{ backgroundImage: `url(${thisPost.image})` }}
+          style={{ backgroundImage: `url(${thisPost?.image})` }}
         >
           <div className={classes.info}>
             <div>
@@ -40,35 +40,35 @@ const PostDetail: React.FC<PostDetailProps> = ({ id }) => {
                 alt="profile_picture"
                 className={classes.prof_pic}
               />
-              <p>{thisPost.author}</p>
+              <p>{thisPost?.author}</p>
             </div>
             <div>
-              <p>{thisPost.date.toDateString()}</p>
+              <p>{thisPost?.date.toDate().toDateString()}</p>
             </div>
           </div>
         </header>
         <main className={classes.content}>
           <div className={classes.stats}>
             <div>
-              {thisPost.tags.map((each) => (
+              {thisPost?.tags.map((each) => (
                 <p key={each}>#{each}</p>
               ))}
             </div>
             <div className={classes.likes_and_comments}>
               <div>
                 <FontAwesomeIcon icon={faHeart} />
-                <p>{thisPost.likes}</p>
+                <p>{thisPost?.likes}</p>
               </div>
               <div>
                 <FontAwesomeIcon icon={faComment} />
-                <p>{thisPost.comments.length}</p>
+                <p>{thisPost?.comments.length}</p>
               </div>
             </div>
           </div>
           <div className={classes.title}>
-            <h1>{thisPost.title}</h1>
+            <h1>{thisPost?.title}</h1>
           </div>
-          <div className={classes.followed}>
+          <div className={classes?.followed}>
             <p>{followerText}</p>
             <p>{followingText}</p>
           </div>

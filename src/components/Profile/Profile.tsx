@@ -1,6 +1,5 @@
 import { doc, updateDoc } from "firebase/firestore";
 import React from "react";
-import { DUMMTY_POSTS } from "../../dummy";
 import { db } from "../../firebase";
 import useFormatFollowers from "../../hooks/useFormatFollowers";
 import useGetUserPosts from "../../hooks/useGetUserPosts";
@@ -20,10 +19,11 @@ const Profile: React.FC<ProfileProps> = ({ id }) => {
   const curUserProfile = users.find(
     (each) => each.name === curUser?.displayName
   );
+  const posts = useAppSelector((state) => state.data.posts);
   const clickedOnUserProfile = users.find((each) => each.id === id); // This is the user profile that has been clicked on!
   const { amount, thisUserPosts } = useGetUserPosts(
     clickedOnUserProfile,
-    DUMMTY_POSTS
+    posts
   );
   const briefFollowerDescription = useFormatFollowers(
     clickedOnUserProfile?.followers || [],
@@ -144,6 +144,10 @@ const Profile: React.FC<ProfileProps> = ({ id }) => {
             key={each.id}
             author={each.author}
             author_pic={each.author_pic}
+            fixedHeight="350px"
+            curUserPost={
+              curUser?.displayName === clickedOnUserProfile.name ? true : false
+            }
           />
         ))}
       </main>

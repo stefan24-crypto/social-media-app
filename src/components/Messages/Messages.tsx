@@ -1,11 +1,11 @@
 import React from "react";
-import { DUMMY_DMS } from "../../dummy";
 import { useAppSelector } from "../../store/hooks";
 import MessageItem from "./MessageItem";
 import classes from "./Messages.module.css";
 
 const Messages: React.FC = () => {
   const curUser = useAppSelector((state) => state.auth.curUser);
+  const dms = useAppSelector(state => state.data.dms);
   if (!curUser)
     return (
       <div className={classes.notLoggedIn}>
@@ -13,7 +13,7 @@ const Messages: React.FC = () => {
       </div>
     );
 
-  const yourMessages = DUMMY_DMS.filter((each) =>
+  const yourMessages = dms.filter((each) =>
     each.people.find((person) => person.name === curUser.displayName!)
   );
 

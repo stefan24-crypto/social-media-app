@@ -5,13 +5,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../UI/Button";
 import AddCircleOutlinedIcon from "@mui/icons-material/AddCircleOutlined";
-import { useAppSelector } from "../../store/hooks";
+import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { useNavigate } from "react-router";
 import { Badge } from "@mui/material";
 
 const Top: React.FC = () => {
   const curUser = useAppSelector((state) => state.auth.curUser);
+  // const posts = useAppSelector((state) => state.data.posts);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const SearchHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
+    // if (e.target.value.trim().length === 0) dispatch(dataActions.setPosts);
+  };
   return (
     <section className={classes.top}>
       <header
@@ -21,7 +27,12 @@ const Top: React.FC = () => {
         <div className={classes.search}>
           <SearchIcon />
         </div>
-        <input type="text" className={classes.input} placeholder="Search" />
+        <input
+          type="text"
+          className={classes.input}
+          placeholder="Search"
+          onChange={SearchHandler}
+        />
       </header>
       {curUser && (
         <main className={classes.second_container}>

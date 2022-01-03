@@ -16,13 +16,9 @@ import { UIActions } from "./store/ui-slice";
 import DmPage from "./Pages/DmPage";
 import ChatRoomPage from "./Pages/ChatRoomPage";
 
-//To Change DUMMY_POSTS: HomeSection, PostDetail, ProfileSection, Profile, Category.
-//To Change DUMMY_DMS: Messages, ChatRoom
-//Show notifications for messages and how many of them that haven't been read.
-//change if (!something) to show loading spinner
-
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
+
   //Authentication
   useEffect(() => {
     dispatch(UIActions.setIsLoading(true));
@@ -39,7 +35,6 @@ const App: React.FC = () => {
     };
   }, []);
 
-  //Figure Out a way to set all posts
   //Data
   useEffect(() => {
     dispatch(UIActions.setIsLoading(true));
@@ -47,6 +42,20 @@ const App: React.FC = () => {
       snapshot.docs.map((doc) =>
         dispatch(
           dataActions.setUsers(
+            snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+          )
+        )
+      );
+      dispatch(UIActions.setIsLoading(false));
+    });
+  }, []);
+
+  useEffect(() => {
+    dispatch(UIActions.setIsLoading(true));
+    onSnapshot(collection(db, "posts"), (snapshot) => {
+      snapshot.docs.map((doc) =>
+        dispatch(
+          dataActions.setPosts(
             snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
           )
         )

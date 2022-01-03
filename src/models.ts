@@ -1,28 +1,19 @@
 import { makeStyles } from "@mui/material";
+import { Timestamp } from "firebase/firestore";
 
 export type Comment = { id: string; author: string; text: string };
-type Category =
-  | "Painting"
-  | "Portrait"
-  | "Technolgoy"
-  | "Cars"
-  | "Outdoors"
-  | "Coding"
-  | "Finance"
-  | "Sports"
-  | "Philanthropy";
 
 export interface Post {
   id: string;
   title: string;
   image: string;
-  date: Date;
+  date: Timestamp;
   author: string;
   author_pic: string;
   tags: string[];
   comments: Comment[];
   likes: number;
-  category: Category;
+  category: string;
 }
 
 type Follower = { name: string; profile_pic: string };
