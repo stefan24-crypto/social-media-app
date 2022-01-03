@@ -13,12 +13,33 @@ import ProfileSection from "./ProfileSection";
 import CategoryIcon from "@mui/icons-material/Category";
 import { useAppSelector } from "../../store/hooks";
 import { auth } from "../../firebase";
+import { Menu, MenuItem, Theme } from "@mui/material";
+import { Categories } from "../../models";
+import useStyles from "../../styles";
 
 const Navbar: React.FC = () => {
   const user = useAppSelector((state) => state.auth.curUser);
   const users = useAppSelector((state) => state.data.users);
   const curUser = users.find((each) => each.name === user?.displayName);
   const navigate = useNavigate();
+  const styles = useStyles();
+
+  //Handing Category Menu
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = (e: React.MouseEvent<HTMLElement>) => {
+    if (e.currentTarget.textContent?.trim().length === 0) {
+      setAnchorEl(null);
+      return;
+    }
+    navigate(`/category/${e.currentTarget.textContent}`);
+    setAnchorEl(null);
+  };
+
   return (
     <nav className={classes.nav}>
       <div className={classes.logo}>
@@ -36,15 +57,30 @@ const Navbar: React.FC = () => {
           <FontAwesomeIcon icon={faHome} className={classes.icon} />
           <p>Home</p>
         </NavLink>
-        <NavLink
-          to="/feed"
-          className={(state) => {
-            return `${classes.link} ${state.isActive ? classes.active : ""}`;
-          }}
-        >
+        <button className={classes.btn} onClick={handleClick}>
           <CategoryIcon sx={{ fontSize: "1rem" }} />
-          <p>Category</p>
-        </NavLink>
+          Category
+        </button>
+        <Menu
+          open={open}
+          onClose={handleClose}
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: "center",
+            horizontal: "right",
+          }}
+          transformOrigin={{
+            vertical: "center",
+            horizontal: "right",
+          }}
+          classes={{ paper: styles.menuPaper }}
+        >
+          {Categories.map((each) => (
+            <MenuItem onClick={handleClose} key={each} sx={{ color: "white" }}>
+              {each}
+            </MenuItem>
+          ))}
+        </Menu>
         <NavLink
           to="/dm"
           className={(state) => {

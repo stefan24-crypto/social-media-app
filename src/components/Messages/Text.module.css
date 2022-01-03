@@ -1,0 +1,31 @@
+.text {
+  padding: 0.6rem 1.2rem;
+  border-radius: 50rem;
+  background: var(--primary-bg);
+  display: flex;
+  flex-direction: column;
+  color: white;
+  width: 50%;
+}
+
+.message p {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.from {
+  /* background: var(--shadow); */
+  background: linear-gradient(to right, #e1306c, #f77737);
+  align-self: flex-end;
+}
+
+.from::after {
+  content: "";
+}
+
+.time p {
+  color: var(--white);
+  font-size: 0.7rem;
+  display: flex;
+  justify-content: flex-end;
+}

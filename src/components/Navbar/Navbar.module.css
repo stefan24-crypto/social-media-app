@@ -52,6 +52,7 @@
   gap: 10px;
   font-size: 0.9rem;
   font-weight: 400;
+  /* background-color: red; */
 }
 
 .active {
@@ -69,4 +70,25 @@
   padding: 0.5rem;
   padding-left: 2rem;
   cursor: pointer;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--white);
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  padding: 0.5rem;
+  padding-left: 2rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 400;
+  font-family: "Poppins";
+}
+
+.menuPaper {
+  background: black;
 }

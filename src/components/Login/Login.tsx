@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import styles from "./Login.module.css";
-import { TextField, InputBase } from "@mui/material";
+import { TextField } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Button from "../../UI/Button";
 import {
@@ -12,16 +12,7 @@ import { auth, db } from "../../firebase";
 import { useNavigate } from "react-router";
 import { collection, addDoc } from "@firebase/firestore";
 import { User } from "../../models";
-
-const useStyles = makeStyles((theme: any) => ({
-  notchedOutline: {
-    borderWidth: " 1px",
-    borderColor: "#f77737 !important",
-  },
-  input: {
-    color: "white",
-  },
-}));
+import useStyles from "../../styles";
 
 const Login: React.FC = () => {
   const [isLogin, setIsLogin] = useState<boolean>(false);

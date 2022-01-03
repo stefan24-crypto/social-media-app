@@ -1,4 +1,6 @@
-export type Comment = { id: string; author: string; text: string; time: Date };
+import { makeStyles } from "@mui/material";
+
+export type Comment = { id: string; author: string; text: string };
 type Category =
   | "Painting"
   | "Portrait"
@@ -46,3 +48,31 @@ export const Categories = [
   "Sports",
   "Philanthropy",
 ];
+
+type Message = { id: string; text: string; to: string; time: Date };
+type People = { name: string; profile_pic: string };
+
+export interface DM {
+  id: string;
+  people: [People, People];
+  messages: Message[];
+}
+
+/*
+
+//Array of different chatroooms
+
+dm = [
+  {
+    id: c1
+    to: coffeecoder,
+    from: Elon Musk,
+    messages: [{
+      id: m1,
+      text: 'Hi There'
+      time: new Date()
+    }]
+  }
+]
+
+*/

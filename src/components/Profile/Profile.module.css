@@ -113,8 +113,11 @@
 }
 .heading {
   padding: 2rem 0;
-  font-size: 1.5rem;
   color: white;
+  font-weight: 400;
+  margin-top: 3rem;
+  letter-spacing: 5px;
+  font-size: 1.2rem;
 }
 .heading h1 {
   font-weight: 400;

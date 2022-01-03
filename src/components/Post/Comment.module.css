@@ -1,0 +1,17 @@
+.comment {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.text {
+  font-size: 1rem;
+  display: flex;
+}
+
+.author_and_time {
+  display: flex;
+  font-size: 0.7rem;
+  color: var(--white);
+  justify-content: space-between;
+}

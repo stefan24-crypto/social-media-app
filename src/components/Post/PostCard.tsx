@@ -14,6 +14,7 @@ interface PostCardProps {
   comments: Comment[];
   author: string;
   author_pic: string;
+  fixedHeight?: string;
 }
 
 const PostCard: React.FC<PostCardProps> = ({
@@ -23,12 +24,21 @@ const PostCard: React.FC<PostCardProps> = ({
   comments,
   author,
   author_pic,
+  fixedHeight,
 }) => {
   const navigate = useNavigate();
   return (
-    <section className={classes.card} onClick={() => navigate(`/${id}`)}>
-      <header>
-        <img src={image} alt="post" className={classes.img} />
+    <section className={classes.card}>
+      <header onClick={() => navigate(`/post/${id}`)}>
+        <img
+          src={image}
+          alt="post"
+          className={classes.img}
+          style={{
+            height: fixedHeight ? fixedHeight : "auto",
+            objectFit: fixedHeight ? "cover" : "contain",
+          }}
+        />
       </header>
       <main className={classes.main}>
         <div className={classes.profile}>

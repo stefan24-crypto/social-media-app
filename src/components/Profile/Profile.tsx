@@ -1,6 +1,6 @@
 import { doc, updateDoc } from "firebase/firestore";
 import React from "react";
-import { DUMMTY_POSTS } from "../../dummy_posts";
+import { DUMMTY_POSTS } from "../../dummy";
 import { db } from "../../firebase";
 import useFormatFollowers from "../../hooks/useFormatFollowers";
 import useGetUserPosts from "../../hooks/useGetUserPosts";
@@ -83,13 +83,8 @@ const Profile: React.FC<ProfileProps> = ({ id }) => {
       btn = <Button onClick={followHandler}>Follow</Button>;
     }
   } else {
-    btn = (
-      <Button disabled={true} className={classes.disabled}>
-        Follow
-      </Button>
-    );
+    btn = null;
   }
-
 
   return (
     <section className={classes.section}>

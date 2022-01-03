@@ -1,0 +1,47 @@
+.message {
+  padding: 1rem;
+  background: var(--secondary-bg);
+  border-radius: 0.4rem;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  transition-duration: 200ms;
+  transition-property: transform;
+  transition-timing-function: ease-in-out;
+}
+
+.message:hover {
+  transform: scale(1.025);
+}
+
+.left {
+  display: flex;
+  gap: 2.4rem;
+  align-items: center;
+}
+
+.text {
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8rem;
+  color: var(--white);
+}
+
+.right {
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+}
+
+.icon {
+  max-width: 20px;
+}

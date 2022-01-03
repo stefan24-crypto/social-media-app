@@ -7,6 +7,7 @@ import Button from "../../UI/Button";
 import AddCircleOutlinedIcon from "@mui/icons-material/AddCircleOutlined";
 import { useAppSelector } from "../../store/hooks";
 import { useNavigate } from "react-router";
+import { Badge } from "@mui/material";
 
 const Top: React.FC = () => {
   const curUser = useAppSelector((state) => state.auth.curUser);
@@ -24,12 +25,14 @@ const Top: React.FC = () => {
       </header>
       {curUser && (
         <main className={classes.second_container}>
-          <div className={classes.icon}>
-            <FontAwesomeIcon icon={faPaperPlane} />
+          <div className={classes.icon} onClick={() => navigate("/dm")}>
+            <Badge badgeContent={0} color="warning">
+              <FontAwesomeIcon icon={faPaperPlane} />
+            </Badge>
           </div>
           <Button className={classes.add_btn} onClick={() => navigate("/add")}>
             <AddCircleOutlinedIcon sx={{ opacity: 0.6 }} />
-            <p>Add Post</p>
+            <p>Post</p>
           </Button>
         </main>
       )}

@@ -1,12 +1,15 @@
 .card {
   border-radius: 0.4rem;
   max-width: 300px;
-  cursor: pointer;
-  transition: 200ms ease;
   color: white;
 }
 
-.card:hover {
+.card header {
+  transition: transform 200ms ease-in-out;
+  cursor: pointer;
+}
+
+.card header:hover {
   transform: scale(1.05);
 }
 

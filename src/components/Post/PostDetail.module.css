@@ -118,3 +118,6 @@
   font-size: 1rem;
   font-family: "Poppins";
 }
+.add_cmt input::placeholder {
+  color: var(--white);
+}

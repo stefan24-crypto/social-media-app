@@ -1,5 +1,5 @@
 import React from "react";
-import { DUMMTY_POSTS } from "../../dummy_posts";
+import { DUMMTY_POSTS } from "../../dummy";
 import classes from "./PostDetail.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
@@ -7,6 +7,7 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { useAppSelector } from "../../store/hooks";
 import useFormatFollowers from "../../hooks/useFormatFollowers";
 import SendIcon from "@mui/icons-material/Send";
+import Comment from "./Comment";
 
 interface PostDetailProps {
   id: string;
@@ -78,12 +79,18 @@ const PostDetail: React.FC<PostDetailProps> = ({ id }) => {
           <h1>Comments</h1>
         </header>
         <main className={classes.comments}>
-          {/* Comments go here! */}
           <div className={classes.list}>
-            <p>First Comment</p>
+            {thisPost.comments.map((each) => (
+              <Comment
+                key={each.id}
+                id={each.id}
+                author={each.author}
+                text={each.text}
+              />
+            ))}
           </div>
           <div className={classes.add_cmt}>
-            <input type="text" />
+            <input type="text" placeholder="Add Comment" />
             <SendIcon />
           </div>
         </main>
