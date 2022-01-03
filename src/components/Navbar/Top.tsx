@@ -16,7 +16,7 @@ const Top: React.FC = () => {
   const yourMessages = dms.filter((each) =>
     each.people.find((person) => person.name === curUser?.displayName)
   );
-  // const numOfDms = useGetNumOfDms(yourMessages);
+  const numOfDms = useGetNumOfDms(yourMessages);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const SearchHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,7 +42,7 @@ const Top: React.FC = () => {
       {curUser && (
         <main className={classes.second_container}>
           <div className={classes.icon} onClick={() => navigate("/dm")}>
-            <Badge badgeContent={0} color="warning">
+            <Badge badgeContent={numOfDms} color="warning">
               <FontAwesomeIcon icon={faPaperPlane} />
             </Badge>
           </div>

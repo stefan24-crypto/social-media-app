@@ -48,7 +48,7 @@ const MessageItem: React.FC<MessageItemProps> = ({
       console.log("Clicked message where the user was the sender");
     }
   };
-  
+
   const clickedChatWhereNotSender = () =>
     sortedArrOfMessages.at(-1)?.author !== curUser?.displayName;
 

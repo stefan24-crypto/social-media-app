@@ -29,6 +29,7 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ id }) => {
     const unique_id = uuid();
     const newFields = {
       messages: [
+        ...thisChatRoom.messages,
         {
           id: unique_id,
           text: textInputRef.current!.value,
@@ -36,7 +37,6 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ id }) => {
           to: otherPerson!.name,
           author: curUser?.displayName,
         },
-        ...thisChatRoom.messages,
       ],
       receiverHasRead: false,
     };
