@@ -5,7 +5,6 @@ import useFormatFollowers from "../../hooks/useFormatFollowers";
 import useGetUserPosts from "../../hooks/useGetUserPosts";
 import { useAppSelector } from "../../store/hooks";
 import Button from "../../UI/Button";
-import ProfileCirlcle from "../../UI/ProfileCirlcle";
 import PostCard from "../Post/PostCard";
 import classes from "./Profile.module.css";
 

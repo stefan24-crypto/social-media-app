@@ -6,10 +6,15 @@ import to from "../../images/paper-plane.png";
 import { useNavigate } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { useAppSelector } from "../../store/hooks";
+import { Badge } from "@mui/material";
+import { Timestamp } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../firebase";
 
 interface MessageItemProps {
-  lastMessage: string;
-  lastMessageTime: Date;
+  lastMessage: any;
+  lastMessageTime: Timestamp;
   otherPersonName: string;
   otherPersonPic: string;
   id: string;
@@ -25,8 +30,48 @@ const MessageItem: React.FC<MessageItemProps> = ({
   isTo,
 }) => {
   const navigate = useNavigate();
+  const curUser = useAppSelector((state) => state.auth.curUser);
+  const thisDm = useAppSelector((state) => state.data.dms).find(
+    (each) => each.id === id
+  );
+  const sortedArrOfMessages = [...thisDm!.messages];
+  sortedArrOfMessages.sort((a, b) => a.time.seconds - b.time.seconds);
+
+  const messageRead = async () => {
+    if (clickedChatWhereNotSender()) {
+      const dmDoc = doc(db, "dms", id);
+      const newFields = {
+        receiverHasRead: true,
+      };
+      await updateDoc(dmDoc, newFields);
+    } else {
+      console.log("Clicked message where the user was the sender");
+    }
+  };
+  
+  const clickedChatWhereNotSender = () =>
+    sortedArrOfMessages.at(-1)?.author !== curUser?.displayName;
+
+  const goToChatRoomHandler = async () => {
+    messageRead();
+    navigate(`/dm/${id}`);
+  };
+
   return (
-    <div className={classes.message} onClick={() => navigate(`/dm/${id}`)}>
+    <div
+      className={classes.message}
+      onClick={goToChatRoomHandler}
+      style={{
+        borderLeft: "2px solid",
+        borderImageSlice:
+          thisDm?.receiverHasRead === false &&
+          curUser?.displayName !== sortedArrOfMessages.at(-1)?.author
+            ? "1"
+            : "0",
+        borderImageSource:
+          "linear-gradient(to top, var(--pink), var(--orange))",
+      }}
+    >
       <div className={classes.left}>
         <div className={classes.profile}>
           <ProfileCirlcle
@@ -40,7 +85,7 @@ const MessageItem: React.FC<MessageItemProps> = ({
           <p>{otherPersonName}</p>
         </div>
         <div className={classes.text}>
-          <p>{lastMessage}</p>
+          <p>{lastMessage.text}</p>
           {isTo ? (
             <FontAwesomeIcon icon={faPaperPlane} className={classes.icon} />
           ) : (
@@ -49,7 +94,7 @@ const MessageItem: React.FC<MessageItemProps> = ({
         </div>
       </div>
       <div className={classes.right}>
-        <p>{lastMessageTime.toDateString()}</p>
+        <p>{lastMessageTime.toDate().toDateString()}</p>
       </div>
     </div>
   );

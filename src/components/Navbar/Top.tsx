@@ -8,10 +8,15 @@ import AddCircleOutlinedIcon from "@mui/icons-material/AddCircleOutlined";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { useNavigate } from "react-router";
 import { Badge } from "@mui/material";
+import useGetNumOfDms from "../../hooks/useGetNumOfDms";
 
 const Top: React.FC = () => {
   const curUser = useAppSelector((state) => state.auth.curUser);
-  // const posts = useAppSelector((state) => state.data.posts);
+  const dms = useAppSelector((state) => state.data.dms);
+  const yourMessages = dms.filter((each) =>
+    each.people.find((person) => person.name === curUser?.displayName)
+  );
+  // const numOfDms = useGetNumOfDms(yourMessages);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const SearchHandler = (e: React.ChangeEvent<HTMLInputElement>) => {

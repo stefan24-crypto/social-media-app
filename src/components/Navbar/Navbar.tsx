@@ -16,13 +16,19 @@ import { auth } from "../../firebase";
 import { Menu, MenuItem, Theme } from "@mui/material";
 import { Categories } from "../../models";
 import useStyles from "../../styles";
+import useGetNumOfDms from "../../hooks/useGetNumOfDms";
 
 const Navbar: React.FC = () => {
   const user = useAppSelector((state) => state.auth.curUser);
   const users = useAppSelector((state) => state.data.users);
   const curUser = users.find((each) => each.name === user?.displayName);
+  const dms = useAppSelector((state) => state.data.dms);
   const navigate = useNavigate();
   const styles = useStyles();
+  const yourMessages = dms.filter((each) =>
+    each.people.find((person) => person.name === curUser?.name)
+  );
+  // const numOfDms = useGetNumOfDms(yourMessages);
 
   //Handing Category Menu
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -88,7 +94,10 @@ const Navbar: React.FC = () => {
           }}
         >
           <FontAwesomeIcon icon={faPaperPlane} className={classes.icon} />
-          <p>Direct</p>
+          <div className={classes.num_of_dms}>
+            <p>Direct</p>
+            {/* {numOfDms === 0 ? "" : <p>{numOfDms}</p>} */}
+          </div>
         </NavLink>
         <NavLink
           to={`/profile/${curUser?.id}`}

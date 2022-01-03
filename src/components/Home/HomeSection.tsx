@@ -46,8 +46,6 @@ const HomeSection: React.FC = () => {
       </div>
     );
 
-  //Note: splitArrayIntoChunksOfLen wouldnt' work with array length of 5 or 6 or 3 or 2 or 1.
-
   return (
     <>
       {isLoading ? (

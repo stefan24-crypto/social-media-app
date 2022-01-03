@@ -89,14 +89,21 @@
 }
 
 .comments {
-  height: 95%;
+  height: 90%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 .heading {
   height: 5%;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+  padding: 1rem;
+  padding-bottom: 3rem;
+}
+.heading h1 {
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .add_cmt {
@@ -126,4 +133,8 @@
   display: flex;
   align-items: center;
   cursor: pointer;
+}
+
+.list {
+  padding: 0.5rem;
 }

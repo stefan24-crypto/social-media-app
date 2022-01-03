@@ -3,6 +3,9 @@ import { useAppSelector } from "../../store/hooks";
 import ProfileCirlcle from "../../UI/ProfileCirlcle";
 import classes from "./ChatRoom.module.css";
 import Text from "./Text";
+import { doc, Timestamp, updateDoc } from "firebase/firestore";
+import { db } from "../../firebase";
+import { v4 as uuid } from "uuid";
 
 interface ChatRoomProps {
   id: string;
@@ -19,6 +22,33 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ id }) => {
     (each) => each.name !== curUser?.displayName
   );
 
+  const addMessageHandler = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (textInputRef.current?.value.trim().length === 0) return;
+    const dmDoc = doc(db, "dms", id);
+    const unique_id = uuid();
+    const newFields = {
+      messages: [
+        {
+          id: unique_id,
+          text: textInputRef.current!.value,
+          time: Timestamp.now(),
+          to: otherPerson!.name,
+          author: curUser?.displayName,
+        },
+        ...thisChatRoom.messages,
+      ],
+      receiverHasRead: false,
+    };
+    await updateDoc(dmDoc, newFields);
+    textInputRef.current!.value = "";
+  };
+
+  //Steps to add Message: get Doc using ID. set new Fields to = [{id: newID, text: text, time: now, author, curUser.displayName}, ...messages] Then updateDoc(chatRoomDoc, newFields);
+  // Note when adding a new message to that doc, get the Id and reset the receiverHasRead property to false.
+
+  //Also filter messages
+
   return (
     <section className={classes.chatroom}>
       <header className={classes.header}>
@@ -34,14 +64,15 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ id }) => {
           <Text
             time={each.time}
             text={each.text}
-            isFromCurUser={Boolean(each.to !== curUser?.displayName)}
+            toWhom={each.to}
             key={each.id}
+            author={each.author}
           />
         ))}
       </main>
-      <footer className={classes.footer}>
+      <form className={classes.footer} onSubmit={addMessageHandler}>
         <input type="text" placeholder="Message..." ref={textInputRef} />
-      </footer>
+      </form>
     </section>
   );
 };

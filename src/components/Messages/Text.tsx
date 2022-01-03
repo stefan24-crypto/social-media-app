@@ -1,15 +1,19 @@
+import { Timestamp } from "firebase/firestore";
 import React from "react";
+import { useAppSelector } from "../../store/hooks";
 import classes from "./Text.module.css";
 
 interface TextProps {
   text: string;
-  isFromCurUser: boolean;
-  time: Date;
+  toWhom: string;
+  time: Timestamp;
+  author: string;
 }
 
-const Text: React.FC<TextProps> = ({ text, isFromCurUser, time }) => {
+const Text: React.FC<TextProps> = ({ text, toWhom, author, time }) => {
+  const curUser = useAppSelector((state) => state.auth.curUser);
   let textClasses = `${classes.text}`;
-  if (isFromCurUser) {
+  if (author === curUser?.displayName) {
     textClasses += ` ${classes.from}`;
   }
   return (
@@ -18,7 +22,7 @@ const Text: React.FC<TextProps> = ({ text, isFromCurUser, time }) => {
         <p>{text}</p>
       </div>
       <div className={classes.time}>
-        <p>{time.toDateString()}</p>
+        <p>{time.toDate().toDateString()}</p>
       </div>
     </div>
   );

@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { DM, User } from "../models";
 import { Post } from "../models";
-import { DUMMY_DMS } from "../dummy";
 
 interface state {
   users: User[] | [];
@@ -12,7 +11,7 @@ interface state {
 const initialState: state = {
   users: [],
   posts: [],
-  dms: DUMMY_DMS,
+  dms: [],
 };
 
 const dataSlice = createSlice({
@@ -26,7 +25,7 @@ const dataSlice = createSlice({
       state.posts = action.payload;
     },
     setDms(state, action) {
-      state.posts = action.payload;
+      state.dms = action.payload;
     },
   },
 });

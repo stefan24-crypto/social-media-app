@@ -16,6 +16,8 @@ import { UIActions } from "./store/ui-slice";
 import DmPage from "./Pages/DmPage";
 import ChatRoomPage from "./Pages/ChatRoomPage";
 
+//Change where using displayName to check to Email.
+
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
 
@@ -56,6 +58,20 @@ const App: React.FC = () => {
       snapshot.docs.map((doc) =>
         dispatch(
           dataActions.setPosts(
+            snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+          )
+        )
+      );
+      dispatch(UIActions.setIsLoading(false));
+    });
+  }, []);
+
+  useEffect(() => {
+    dispatch(UIActions.setIsLoading(true));
+    onSnapshot(collection(db, "dms"), (snapshot) => {
+      snapshot.docs.map((doc) =>
+        dispatch(
+          dataActions.setDms(
             snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
           )
         )

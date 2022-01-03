@@ -40,13 +40,20 @@ export const Categories = [
   "Philanthropy",
 ];
 
-type Message = { id: string; text: string; to: string; time: Date };
+type Message = {
+  id: string;
+  text: string;
+  to: string;
+  time: Timestamp;
+  author: string;
+};
 type People = { name: string; profile_pic: string };
 
 export interface DM {
   id: string;
   people: [People, People];
   messages: Message[];
+  receiverHasRead: boolean;
 }
 
 /*
