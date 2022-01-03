@@ -121,3 +121,9 @@
 .add_cmt input::placeholder {
   color: var(--white);
 }
+
+.add_cmt div {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}

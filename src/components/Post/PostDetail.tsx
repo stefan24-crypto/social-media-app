@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import classes from "./PostDetail.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
@@ -7,6 +7,9 @@ import { useAppSelector } from "../../store/hooks";
 import useFormatFollowers from "../../hooks/useFormatFollowers";
 import SendIcon from "@mui/icons-material/Send";
 import Comment from "./Comment";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../firebase";
+import { v4 as uuid } from "uuid";
 
 interface PostDetailProps {
   id: string;
@@ -16,6 +19,7 @@ const PostDetail: React.FC<PostDetailProps> = ({ id }) => {
   const users = useAppSelector((state) => state.data.users);
   const posts = useAppSelector((state) => state.data.posts);
   const thisPost = posts.find((each) => each.id === id);
+  const curUser = useAppSelector((state) => state.auth.curUser);
   const authorProfile = users.find((each) => each.name === thisPost?.author);
   const followerText = useFormatFollowers(
     authorProfile?.followers || [],
@@ -25,7 +29,28 @@ const PostDetail: React.FC<PostDetailProps> = ({ id }) => {
     authorProfile?.following || [],
     "Following"
   );
+  const commentRef = useRef<HTMLInputElement>(null);
+
   if (!thisPost) return <h1>No Post Found</h1>;
+  const addCommentHandler = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (commentRef.current?.value.trim().length === 0) return;
+    const postDoc = doc(db, "posts", thisPost.id);
+    const unique_id = uuid();
+    const newFields = {
+      comments: [
+        {
+          id: unique_id,
+          text: commentRef.current!.value,
+          author: curUser?.displayName,
+        },
+        ...thisPost.comments,
+      ],
+    };
+    await updateDoc(postDoc, newFields);
+    commentRef.current!.value = "";
+  };
+
   return (
     <section className={classes.section}>
       <div className={classes.first_container}>
@@ -89,10 +114,12 @@ const PostDetail: React.FC<PostDetailProps> = ({ id }) => {
               />
             ))}
           </div>
-          <div className={classes.add_cmt}>
-            <input type="text" placeholder="Add Comment" />
-            <SendIcon />
-          </div>
+          <form className={classes.add_cmt} onSubmit={addCommentHandler}>
+            <input type="text" placeholder="Add Comment" ref={commentRef} />
+            <div>
+              <SendIcon />
+            </div>
+          </form>
         </main>
       </div>
     </section>
