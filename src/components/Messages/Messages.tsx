@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAppSelector } from "../../store/hooks";
 import MessageItem from "./MessageItem";
 import classes from "./Messages.module.css";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
+import ChatRoom from "./ChatRoom";
 
-// export const
+//Add Messages and ChatRoom Side by Side
 
 const Messages: React.FC = () => {
   const curUser = useAppSelector((state) => state.auth.curUser);
   const dms = useAppSelector((state) => state.data.dms);
+  const yourMessages = dms.filter((each) =>
+    each.people.find((person) => person.name === curUser?.displayName)
+  );
+  const [chatRoomID, setChatRoomId] = useState(yourMessages[0].id || "");
   if (!curUser)
     return (
       <div className={classes.notLoggedIn}>
@@ -19,32 +24,40 @@ const Messages: React.FC = () => {
 
   if (!dms) return <h1>No dms</h1>;
 
-  const yourMessages = dms.filter((each) =>
-    each.people.find((person) => person.name === curUser.displayName!)
-  );
-  const arrOfotherPeople = yourMessages.map((each) =>
-    each.people.find((person) => person.name !== curUser.displayName!)
-  );
-  const arrOfLastMessages = yourMessages.map((each) => each.messages.at(-1));
-  console.log(arrOfLastMessages);
+  const changeChatroomID = (id: string) => {
+    setChatRoomId(id);
+  };
+
+  const messageRead = async (id: string, arrOfMessages: any[]) => {
+    if (clickedChatWhereNotSender(arrOfMessages)) {
+      const dmDoc = doc(db, "dms", id);
+      const newFields = {
+        receiverHasRead: true,
+      };
+      await updateDoc(dmDoc, newFields);
+    }
+  };
+
+  const clickedChatWhereNotSender = (sortedArrOfMessages: any[]) =>
+    sortedArrOfMessages.at(-1)?.author !== curUser?.displayName;
 
   return (
     <section className={classes.message_section}>
-      <header className={classes.header}>
-        <h1>Messages</h1>
-      </header>
       <main className={classes.main}>
-        {yourMessages.map((each, i) => (
-          <MessageItem
-            id={each.id}
-            key={each.id}
-            isTo={Boolean(arrOfLastMessages[i]!.to !== curUser.displayName)}
-            lastMessage={arrOfLastMessages[i]!}
-            lastMessageTime={arrOfLastMessages[i]!.time}
-            otherPersonName={arrOfotherPeople[i]!.name}
-            otherPersonPic={arrOfotherPeople[i]!.profile_pic}
-          />
-        ))}
+        <div className={classes.messages}>
+          <header className={classes.header}>
+            <h1>Messages</h1>
+          </header>
+          {yourMessages.map((each) => (
+            <MessageItem
+              id={each.id}
+              key={each.id}
+              changeId={changeChatroomID}
+              messageRead={messageRead}
+            />
+          ))}
+        </div>
+        <ChatRoom id={chatRoomID} messageRead={messageRead} />
       </main>
     </section>
   );

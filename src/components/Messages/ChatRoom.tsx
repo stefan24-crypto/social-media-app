@@ -9,14 +9,22 @@ import { v4 as uuid } from "uuid";
 
 interface ChatRoomProps {
   id: string;
+  messageRead: (id: string, arrOfMessages: any[]) => void;
 }
 
-const ChatRoom: React.FC<ChatRoomProps> = ({ id }) => {
+const ChatRoom: React.FC<ChatRoomProps> = ({ id, messageRead }) => {
   const textInputRef = useRef<HTMLInputElement>(null);
   const curUser = useAppSelector((state) => state.auth.curUser);
   const dms = useAppSelector((state) => state.data.dms);
   const thisChatRoom = dms.find((each) => each.id === id);
-  if (!thisChatRoom) return <h1>No Chat Room</h1>;
+  if (!thisChatRoom)
+    return (
+      <div className={classes.initial}>
+        <h1>Select a Chat</h1>
+      </div>
+    );
+  const sortedMessages = [...thisChatRoom.messages];
+  sortedMessages.sort((a, b) => a.time.seconds - b.time.seconds);
 
   const otherPerson = thisChatRoom?.people.find(
     (each) => each.name !== curUser?.displayName
@@ -44,11 +52,6 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ id }) => {
     textInputRef.current!.value = "";
   };
 
-  //Steps to add Message: get Doc using ID. set new Fields to = [{id: newID, text: text, time: now, author, curUser.displayName}, ...messages] Then updateDoc(chatRoomDoc, newFields);
-  // Note when adding a new message to that doc, get the Id and reset the receiverHasRead property to false.
-
-  //Also filter messages
-
   return (
     <section className={classes.chatroom}>
       <header className={classes.header}>
@@ -71,7 +74,12 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ id }) => {
         ))}
       </main>
       <form className={classes.footer} onSubmit={addMessageHandler}>
-        <input type="text" placeholder="Message..." ref={textInputRef} />
+        <input
+          type="text"
+          placeholder="Message..."
+          ref={textInputRef}
+          onClick={() => messageRead(id, sortedMessages)}
+        />
       </form>
     </section>
   );

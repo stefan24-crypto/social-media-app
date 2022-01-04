@@ -1,8 +1,7 @@
 .chatroom {
-  width: 80%;
-  height: 75vh;
+  width: 70%;
+  height: 100%;
   background: var(--secondary-bg);
-  margin: 2rem auto;
   border-radius: 0.5rem;
   overflow: hidden;
   display: flex;
@@ -17,6 +16,14 @@
   align-items: center;
   padding: 1rem;
   gap: 5px;
+}
+
+.initial {
+  width: 70%;
+  background: var(--secondary-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .img {

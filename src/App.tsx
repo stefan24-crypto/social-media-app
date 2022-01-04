@@ -14,9 +14,8 @@ import AddPostPage from "./Pages/AddPostPage";
 import PostDetailPage from "./Pages/PostDetailPage";
 import { UIActions } from "./store/ui-slice";
 import DmPage from "./Pages/DmPage";
-import ChatRoomPage from "./Pages/ChatRoomPage";
 
-//Change where using displayName to check to Email.
+//Organize Code
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -89,7 +88,6 @@ const App: React.FC = () => {
         <Route path="/add" element={<AddPostPage />} />
         <Route path="/post/:postID" element={<PostDetailPage />} />
         <Route path="/dm" element={<DmPage />} />
-        <Route path="/dm/:chatroomID" element={<ChatRoomPage />} />
       </Routes>
     </Layout>
   );
