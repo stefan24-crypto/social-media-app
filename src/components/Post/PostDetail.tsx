@@ -32,10 +32,10 @@ const PostDetail: React.FC<PostDetailProps> = ({ id }) => {
   const commentRef = useRef<HTMLInputElement>(null);
 
   if (!thisPost) return <h1>No Post Found</h1>;
+  const postDoc = doc(db, "posts", id);
   const addCommentHandler = async (e: React.FormEvent) => {
     e.preventDefault();
     if (commentRef.current?.value.trim().length === 0) return;
-    const postDoc = doc(db, "posts", thisPost.id);
     const unique_id = uuid();
     const newFields = {
       comments: [
@@ -49,6 +49,13 @@ const PostDetail: React.FC<PostDetailProps> = ({ id }) => {
     };
     await updateDoc(postDoc, newFields);
     commentRef.current!.value = "";
+  };
+
+  const addLikeHandler = async () => {
+    const newFields = {
+      likes: thisPost.likes + 1,
+    };
+    await updateDoc(postDoc, newFields);
   };
 
   return (
@@ -80,7 +87,7 @@ const PostDetail: React.FC<PostDetailProps> = ({ id }) => {
               ))}
             </div>
             <div className={classes.likes_and_comments}>
-              <div>
+              <div onClick={addLikeHandler}>
                 <FontAwesomeIcon icon={faHeart} />
                 <p>{thisPost?.likes}</p>
               </div>

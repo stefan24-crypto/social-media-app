@@ -138,3 +138,7 @@
 .list {
   padding: 0.5rem;
 }
+
+.likes_and_comments div:nth-child(1) {
+  cursor: pointer;
+}

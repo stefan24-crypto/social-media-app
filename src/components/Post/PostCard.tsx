@@ -7,7 +7,7 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import ProfileCirlcle from "../../UI/ProfileCirlcle";
 import { useNavigate } from "react-router";
 import ClearIcon from "@mui/icons-material/Clear";
-import { deleteDoc, doc } from "firebase/firestore";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 
 interface PostCardProps {
@@ -32,9 +32,17 @@ const PostCard: React.FC<PostCardProps> = ({
   curUserPost,
 }) => {
   const navigate = useNavigate();
+
+  const postDoc = doc(db, "posts", id);
   const deleteHandler = async () => {
-    const postDoc = doc(db, "posts", id);
     await deleteDoc(postDoc);
+  };
+
+  const addLikeHandler = async () => {
+    const newFields = {
+      likes: likes + 1,
+    };
+    await updateDoc(postDoc, newFields);
   };
 
   return (
@@ -69,7 +77,7 @@ const PostCard: React.FC<PostCardProps> = ({
         </div>
         <div className={classes.like_and_comments}>
           <div className={classes.likes}>
-            <FontAwesomeIcon icon={faHeart} />
+            <FontAwesomeIcon icon={faHeart} onClick={addLikeHandler} />
             <p>{likes}</p>
           </div>
           <div className={classes.comments}>

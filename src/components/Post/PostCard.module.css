@@ -31,6 +31,10 @@
   gap: 2px;
 }
 
+.likes:hover {
+  cursor: pointer;
+}
+
 .profile {
   display: flex;
   align-items: center;
