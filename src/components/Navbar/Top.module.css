@@ -19,16 +19,14 @@
   gap: 6px;
 }
 
-.input_div {
-  background: var(--shadow);
+.header {
   display: flex;
   align-items: center;
   color: white;
-  border-radius: 0.4rem;
-  padding: 0.5rem;
+  padding: 1rem 0;
 }
 
-.input {
+/* .input {
   background: transparent;
   height: 100%;
   padding: 0.5rem;
@@ -38,7 +36,7 @@
   font-family: "Poppins";
   color: var(--white);
   width: 100%;
-}
+} */
 
 .icon {
   display: flex;
@@ -55,8 +53,13 @@
   background: rgba(0, 0, 0, 0.151);
 }
 
-.search {
+.message {
   display: flex;
   align-items: center;
   padding: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.message h1 {
+  font-weight: 500;
 }

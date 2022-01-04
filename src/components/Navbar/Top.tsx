@@ -9,6 +9,7 @@ import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { useNavigate } from "react-router";
 import { Badge } from "@mui/material";
 import useGetNumOfDms from "../../hooks/useGetNumOfDms";
+import useGetMessage from "../../hooks/useGetMessage";
 
 const Top: React.FC = () => {
   const curUser = useAppSelector((state) => state.auth.curUser);
@@ -19,25 +20,17 @@ const Top: React.FC = () => {
   const numOfDms = useGetNumOfDms(yourMessages);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const SearchHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
-    // if (e.target.value.trim().length === 0) dispatch(dataActions.setPosts);
-  };
+  const text = useGetMessage(curUser?.displayName || "");
+  console.log(text);
   return (
     <section className={classes.top}>
       <header
-        className={classes.input_div}
+        className={classes.header}
         style={{ width: curUser ? "50%" : "90%" }}
       >
-        <div className={classes.search}>
-          <SearchIcon />
+        <div className={classes.message}>
+          <h1>{text}</h1>
         </div>
-        <input
-          type="text"
-          className={classes.input}
-          placeholder="Search"
-          onChange={SearchHandler}
-        />
       </header>
       {curUser && (
         <main className={classes.second_container}>
