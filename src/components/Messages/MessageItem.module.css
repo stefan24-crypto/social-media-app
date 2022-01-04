@@ -1,6 +1,7 @@
 .message {
   padding: 1rem;
-  background: var(--secondary-bg);
+  /* background: var(--secondary-bg); */
+  background: #0e0e0e;
   border-radius: 0.4rem;
   display: flex;
   justify-content: space-between;
@@ -8,6 +9,7 @@
   transition-duration: 200ms;
   transition-property: transform;
   transition-timing-function: ease-in-out;
+  gap: 1.5rem;
 }
 
 .message:hover {
@@ -21,10 +23,12 @@
 }
 
 .text {
-  font-size: 1rem;
+  font-size: 0.9rem;
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: flex-end;
+  width: 100%;
+  gap: 5px;
 }
 
 .profile {
@@ -33,13 +37,6 @@
   gap: 4px;
   font-size: 0.8rem;
   color: var(--white);
-}
-
-.right {
-  color: var(--white);
-  display: flex;
-  align-items: center;
-  font-size: 0.8rem;
 }
 
 .icon {

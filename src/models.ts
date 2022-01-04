@@ -52,7 +52,7 @@ type People = { name: string; profile_pic: string };
 export interface DM {
   id: string;
   people: [People, People];
-  messages: Message[];
+  messages: Message[] | [];
   receiverHasRead: boolean;
 }
 

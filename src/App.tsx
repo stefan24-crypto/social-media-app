@@ -78,6 +78,7 @@ const App: React.FC = () => {
       dispatch(UIActions.setIsLoading(false));
     });
   }, []);
+
   return (
     <Layout>
       <Routes>

@@ -17,12 +17,23 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ id, messageRead }) => {
   const curUser = useAppSelector((state) => state.auth.curUser);
   const dms = useAppSelector((state) => state.data.dms);
   const thisChatRoom = dms.find((each) => each.id === id);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  //Auto-Scrolling
+  const scroll = () =>
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+
+  useEffect(() => {
+    scroll();
+  }, []);
+
   if (!thisChatRoom)
     return (
       <div className={classes.initial}>
         <h1>Select a Chat</h1>
       </div>
     );
+
   const sortedMessages = [...thisChatRoom.messages];
   sortedMessages.sort((a, b) => a.time.seconds - b.time.seconds);
 
@@ -49,6 +60,7 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ id, messageRead }) => {
       receiverHasRead: false,
     };
     await updateDoc(dmDoc, newFields);
+    scroll();
     textInputRef.current!.value = "";
   };
 
@@ -69,9 +81,14 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ id, messageRead }) => {
             text={each.text}
             toWhom={each.to}
             key={each.id}
+            id={each.id}
             author={each.author}
+            dmID={id}
+            allMessages={sortedMessages}
           />
         ))}
+
+        <div className={classes.to_scroll} ref={scrollRef}></div>
       </main>
       <form className={classes.footer} onSubmit={addMessageHandler}>
         <input

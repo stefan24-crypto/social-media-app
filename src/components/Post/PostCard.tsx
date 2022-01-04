@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Comment } from "../../models";
 import classes from "./PostCard.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,9 +6,7 @@ import { faComment } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import ProfileCirlcle from "../../UI/ProfileCirlcle";
 import { useNavigate } from "react-router";
-import { Badge } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
-import { fontWeight } from "@mui/system";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../firebase";
 

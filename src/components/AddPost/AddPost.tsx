@@ -43,7 +43,7 @@ const AddPost: React.FC = () => {
     setAnchorEl(null);
   };
 
-  if (!curUser) return <h1>No Current User</h1>;
+  if (!curUser) return <></>;
 
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();

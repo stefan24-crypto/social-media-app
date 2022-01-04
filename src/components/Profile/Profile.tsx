@@ -13,13 +13,13 @@ interface ProfileProps {
 }
 
 const Profile: React.FC<ProfileProps> = ({ id }) => {
-  const curUser = useAppSelector((state) => state.auth.curUser); // This is the current logged In user
+  const curUser = useAppSelector((state) => state.auth.curUser);
   const users = useAppSelector((state) => state.data.users);
   const curUserProfile = users.find(
     (each) => each.name === curUser?.displayName
   );
   const posts = useAppSelector((state) => state.data.posts);
-  const clickedOnUserProfile = users.find((each) => each.id === id); // This is the user profile that has been clicked on!
+  const clickedOnUserProfile = users.find((each) => each.id === id);
   const { amount, thisUserPosts } = useGetUserPosts(
     clickedOnUserProfile,
     posts
@@ -32,9 +32,9 @@ const Profile: React.FC<ProfileProps> = ({ id }) => {
     clickedOnUserProfile?.following || [],
     "Following"
   );
+
   if (!clickedOnUserProfile) return <></>;
   let btn;
-
   const followHandler = async () => {
     const isThere = clickedOnUserProfile.followers.find(
       (each) => each.name === curUserProfile!.name
@@ -71,7 +71,6 @@ const Profile: React.FC<ProfileProps> = ({ id }) => {
     const followingAlready = clickedOnUserProfile.followers.find(
       (each) => each.name === curUserProfile!.name
     );
-    console.log(followingAlready);
     if (followingAlready) {
       btn = (
         <Button disabled={true} className={classes.disabled}>

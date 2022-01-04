@@ -31,15 +31,12 @@ const Navbar: React.FC = () => {
   );
   const numOfDms = useGetNumOfDms(yourMessages);
 
-
-
   //Handing Category Menu
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-
   const handleClose = (e: React.MouseEvent<HTMLElement>) => {
     if (e.currentTarget.textContent?.trim().length === 0) {
       setAnchorEl(null);
@@ -53,7 +50,7 @@ const Navbar: React.FC = () => {
     <nav className={classes.nav}>
       <div className={classes.logo}>
         <img src={logo} className={classes.img} alt="icon" />
-        <img src={text} className={classes.text} alt="text}" />
+        <img src={text} className={classes.text} alt="text" />
       </div>
       <ProfileSection />
       <div className={classes.links}>

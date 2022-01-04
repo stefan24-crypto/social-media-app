@@ -7,6 +7,7 @@ import { useNavigate } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { useAppSelector } from "../../store/hooks";
+import useShortenText from "../../hooks/useShortenText";
 
 interface MessageItemProps {
   id: string;
@@ -19,16 +20,23 @@ const MessageItem: React.FC<MessageItemProps> = ({
   changeId,
   messageRead,
 }) => {
+  let lastMessage;
   const curUser = useAppSelector((state) => state.auth.curUser);
   const thisDm = useAppSelector((state) => state.data.dms).find(
     (each) => each.id === id
   );
   const sortedArrOfMessages = [...thisDm!.messages];
   sortedArrOfMessages.sort((a, b) => a.time.seconds - b.time.seconds);
+
+  if (sortedArrOfMessages.length !== 0) {
+    lastMessage = sortedArrOfMessages.at(-1);
+  }
+
   const otherPerson = thisDm?.people.find(
     (each) => each.name !== curUser?.displayName
   );
-  const isTo = sortedArrOfMessages.at(-1)?.to !== curUser?.displayName;
+  const shortened = useShortenText(lastMessage?.text || "", 35);
+  const isTo = lastMessage?.to !== curUser?.displayName;
   if (!otherPerson) return <></>;
 
   const goToChatRoomHandler = async () => {
@@ -44,14 +52,13 @@ const MessageItem: React.FC<MessageItemProps> = ({
         borderLeft: "2px solid",
         borderImageSlice:
           thisDm?.receiverHasRead === false &&
-          curUser?.displayName !== sortedArrOfMessages.at(-1)?.author
+          curUser?.displayName !== lastMessage?.author
             ? "1"
             : "0",
         borderImageSource:
           "linear-gradient(to top, var(--pink), var(--orange))",
       }}
     >
-      {/* <div className={classes.left}> */}
       <div className={classes.profile}>
         <ProfileCirlcle
           src={otherPerson?.profile_pic}
@@ -64,7 +71,7 @@ const MessageItem: React.FC<MessageItemProps> = ({
         <p>{otherPerson?.name}</p>
       </div>
       <div className={classes.text}>
-        <p>{sortedArrOfMessages.at(-1)?.text}</p>
+        <p>{shortened}</p>
         {isTo ? (
           <FontAwesomeIcon icon={faPaperPlane} className={classes.icon} />
         ) : (
