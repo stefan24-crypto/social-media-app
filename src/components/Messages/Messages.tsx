@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import { useAppSelector } from "../../store/hooks";
 import MessageItem from "./MessageItem";
 import classes from "./Messages.module.css";
-import { collection, doc, updateDoc, addDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  updateDoc,
+  addDoc,
+  deleteDoc,
+} from "firebase/firestore";
 import { db } from "../../firebase";
 import AddIcCallIcon from "@mui/icons-material/AddIcCall";
 import ChatRoom from "./ChatRoom";
@@ -23,6 +29,9 @@ const Messages: React.FC = () => {
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
   };
   const styles = useStyles();
   const dmsCollection = collection(db, "dms");
@@ -81,6 +90,7 @@ const Messages: React.FC = () => {
     setAnchorEl(null);
   };
 
+
   return (
     <section className={classes.message_section}>
       <main className={classes.main}>
@@ -102,6 +112,7 @@ const Messages: React.FC = () => {
                 horizontal: "left",
               }}
               classes={{ paper: styles.menuPaper }}
+              onClose={handleClose}
             >
               {allOtherPeople.map((each) => (
                 <MenuItem

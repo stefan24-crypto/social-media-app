@@ -5,11 +5,19 @@
   border-radius: 0.4rem;
   display: flex;
   justify-content: space-between;
-  cursor: pointer;
   transition-duration: 200ms;
   transition-property: transform;
   transition-timing-function: ease-in-out;
   gap: 1.5rem;
+}
+
+.hover {
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 .message:hover {
@@ -41,4 +49,15 @@
 
 .icon {
   max-width: 20px;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.icons div {
+  display: flex;
+  align-items: center;
 }
