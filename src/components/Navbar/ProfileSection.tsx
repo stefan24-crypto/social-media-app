@@ -14,7 +14,6 @@ const ProfileSection: React.FC = () => {
     (each) => each.name === curUser?.displayName
   );
   const { amount } = useGetUserPosts(userProfile || undefined, posts);
-  console.log(userProfile);
 
   if (!curUser) return <div className={classes.noUser}></div>;
   if (!userProfile) return <></>;

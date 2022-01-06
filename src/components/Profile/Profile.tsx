@@ -1,6 +1,7 @@
-import { doc, updateDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import React, { useState } from "react";
-import { db } from "../../firebase";
+import { useNavigate } from "react-router";
+import { auth, db } from "../../firebase";
 import useFormatFollowers from "../../hooks/useFormatFollowers";
 import useGetUserPosts from "../../hooks/useGetUserPosts";
 import { useAppSelector } from "../../store/hooks";
@@ -16,11 +17,16 @@ interface ProfileProps {
 const Profile: React.FC<ProfileProps> = ({ id }) => {
   const [showEdit, setShowEdit] = useState(false);
   const curUser = useAppSelector((state) => state.auth.curUser);
+  const dms = useAppSelector((state) => state.data.dms);
   const users = useAppSelector((state) => state.data.users);
   const curUserProfile = users.find(
     (each) => each.name === curUser?.displayName
   );
   const posts = useAppSelector((state) => state.data.posts);
+  const yourMessages = dms.filter((each) =>
+    each.people.find((person) => person.name === curUser?.displayName)
+  );
+  const navigate = useNavigate();
   const clickedOnUserProfile = users.find((each) => each.id === id);
   const { amount, thisUserPosts } = useGetUserPosts(
     clickedOnUserProfile,
@@ -86,8 +92,62 @@ const Profile: React.FC<ProfileProps> = ({ id }) => {
     btn = null;
   }
 
-  //To delete a profile: remove him from users list, from firebase users, remove all his posts, remove all his dms, remove him from all the people he has followed,
-  // and all the people that he is following.
+  const deleteProfileHandler = async () => {
+    const goAhead = prompt("Are you Sure you want to delete you profile? ");
+    if (
+      goAhead === "yes" ||
+      goAhead === "Yes" ||
+      goAhead === "yh" ||
+      goAhead === "Yh"
+    ) {
+      //remove all posts
+      if (thisUserPosts.length !== 0) {
+        thisUserPosts.forEach(async (each) => {
+          const postDoc = doc(db, "posts", each.id);
+          await deleteDoc(postDoc);
+        });
+      }
+
+      //Remove all DM's
+      if (yourMessages.length !== 0) {
+        yourMessages.forEach(async (each) => {
+          const dmDoc = doc(db, "dms", each.id);
+          await deleteDoc(dmDoc);
+        });
+      }
+
+      //Remove from all the People Followed
+      users.forEach(async (each, index) => {
+        const userDoc = doc(db, "users", each.id);
+        const newFields = {
+          followers: each.followers.filter(
+            (item) => item.name !== curUser?.displayName
+          ),
+        };
+        await updateDoc(userDoc, newFields);
+      });
+
+      //Remove from all the People he is Following
+      users.forEach(async (each, index) => {
+        const userDoc = doc(db, "users", each.id);
+        const newFields = {
+          following: each.following.filter(
+            (item) => item.name !== curUser?.displayName
+          ),
+        };
+        await updateDoc(userDoc, newFields);
+      });
+
+      // update users
+      const userDoc = doc(db, "users", id);
+      await deleteDoc(userDoc);
+
+      //Delete From Firebase Auth
+      auth.currentUser?.delete();
+      auth.signOut();
+      navigate("/");
+    }
+  };
 
   return (
     <>
@@ -134,7 +194,12 @@ const Profile: React.FC<ProfileProps> = ({ id }) => {
               {curUser?.displayName === clickedOnUserProfile.name ? (
                 <div className={classes.your_profile_btns}>
                   <Button onClick={() => setShowEdit(true)}>Add Bio</Button>
-                  <Button className={classes.del}>Delete Profile</Button>
+                  <Button
+                    className={classes.del}
+                    onClick={deleteProfileHandler}
+                  >
+                    Delete Profile
+                  </Button>
                 </div>
               ) : (
                 btn

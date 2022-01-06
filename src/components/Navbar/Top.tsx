@@ -21,7 +21,6 @@ const Top: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const text = useGetMessage(curUser?.displayName || "");
-  console.log(text);
   return (
     <section className={classes.top}>
       <header

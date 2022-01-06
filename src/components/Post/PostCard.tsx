@@ -76,8 +76,8 @@ const PostCard: React.FC<PostCardProps> = ({
           <p>{author}</p>
         </div>
         <div className={classes.like_and_comments}>
-          <div className={classes.likes}>
-            <FontAwesomeIcon icon={faHeart} onClick={addLikeHandler} />
+          <div className={classes.likes} onClick={addLikeHandler}>
+            <FontAwesomeIcon icon={faHeart} />
             <p>{likes}</p>
           </div>
           <div className={classes.comments}>
