@@ -122,7 +122,12 @@ const PostDetail: React.FC<PostDetailProps> = ({ id }) => {
             ))}
           </div>
           <form className={classes.add_cmt} onSubmit={addCommentHandler}>
-            <input type="text" placeholder="Add Comment" ref={commentRef} />
+            <input
+              type="text"
+              placeholder="Add Comment"
+              ref={commentRef}
+              disabled={curUser ? false : true}
+            />
             <div>
               <SendIcon />
             </div>
