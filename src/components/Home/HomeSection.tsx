@@ -106,8 +106,7 @@ const HomeSection: React.FC = () => {
                   />
                 ))}
               </div>
-            </div>
-            <div className={classes.responsive}>
+
               <div className={classes.column}>
                 {thirdArr.map((each) => (
                   <PostCard

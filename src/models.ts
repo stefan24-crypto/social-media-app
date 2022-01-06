@@ -23,6 +23,7 @@ export type Followers = Follower[] | [];
 export interface User {
   id: string;
   name: string;
+  bio: string;
   profile_pic: string;
   followers: Followers;
   following: Followers;

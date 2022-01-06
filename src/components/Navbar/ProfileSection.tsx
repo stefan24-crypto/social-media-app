@@ -8,14 +8,16 @@ import { CircularProgress } from "@mui/material";
 const ProfileSection: React.FC = () => {
   const curUser = useAppSelector((state) => state.auth.curUser);
   const allUsers = useAppSelector((state) => state.data.users);
-  const posts = useAppSelector(state  => state.data.posts);
+  const posts = useAppSelector((state) => state.data.posts);
   const isLoading = useAppSelector((state) => state.ui.isLoading);
   const userProfile = allUsers.find(
     (each) => each.name === curUser?.displayName
   );
   const { amount } = useGetUserPosts(userProfile || undefined, posts);
+  console.log(userProfile);
 
   if (!curUser) return <div className={classes.noUser}></div>;
+  if (!userProfile) return <></>;
   // if (!userProfile) return <h1>No user</h1>;
   return (
     <>

@@ -90,14 +90,13 @@ const Messages: React.FC = () => {
     setAnchorEl(null);
   };
 
-
   return (
     <section className={classes.message_section}>
       <main className={classes.main}>
         <div className={classes.messages}>
           <header className={classes.header}>
             <h1>Messages</h1>
-            <div onClick={handleClick}>
+            <div onClick={handleClick} style={{ cursor: "pointer" }}>
               <AddIcCallIcon />
             </div>
             <Menu
